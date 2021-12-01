@@ -1,0 +1,19 @@
+﻿@page "/"
+@using Kontroleri.Shared
+@inject HttpClient HC
+
+<button @onclick=Bar>Test</button>
+<div>
+    <b>@Osoba.Ime @Osoba.Prezime</b>
+</div>
+@code 
+{
+    public Osoba Osoba { get; set; } = new();
+    public async void Bar()
+    {
+        var rez = await HC.PostAsJsonAsync
+            ("test", new Osoba { Ime = "Pera", Prezime = "Peric" });
+        Osoba = await rez.Content.ReadFromJsonAsync<Osoba>();
+        StateHasChanged();
+    }
+}

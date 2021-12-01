@@ -1,0 +1,20 @@
+﻿@page "/unos"
+@inject HttpClient HC
+<h3>Unos</h3>
+
+<div>
+    <EditForm Model=@Osoba OnSubmit=@Posalji>
+        <i>Ime:</i><InputText @bind-Value=Osoba.Ime/><br/>
+        <i>Prezime:</i><InputText @bind-Value=Osoba.Prezime/><br/>
+        <button type="submit" class="btn btn-danger">Posaljjji</button>
+    </EditForm>
+</div>
+
+
+@code {
+    private Osoba Osoba { get; set; } = new();
+    public void Posalji()
+    {
+        HC.PostAsJsonAsync("test", Osoba);
+    }
+}
